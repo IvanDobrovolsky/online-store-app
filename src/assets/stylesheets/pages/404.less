@@ -1,0 +1,45 @@
+@import '../palette';
+
+.page_not-found{
+  text-align: center;
+
+  &-title{
+    font-size: 40px;
+  }
+
+  &-image{
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+
+    img{
+      max-width: 100%;
+    }
+    p{
+      position: absolute;
+      top: 17px;
+      left: 100px;
+      color: @color_white;
+      font-size: 100px;
+    }
+  }
+
+  &-cta{
+    display: block;
+    font-size: 20px;
+    margin: 30px auto 0;
+    width: 60px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: @background_orange;
+    color: @color_white;
+    -webkit-box-shadow: -2px 3px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: -2px 3px 5px 0px rgba(0,0,0,0.75);
+    transition: 0.3s ease-in;
+
+    &:active{
+      box-shadow: none;
+    }
+  }
+}
