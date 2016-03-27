@@ -1,0 +1,43 @@
+@import '../palette';
+@import '../styleguide';
+
+.page_home{
+  text-align: center;
+
+  &-title{
+    .styleguide-title;
+  }
+
+  &-description{
+    max-width: 996px;
+    display: block;
+    margin: 15px auto;
+    font-size: 17px;
+    color: @color_primary
+  }
+
+  &-github-link{
+    display: block;
+    img{
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 0;
+    }
+  }
+
+  &-image{
+    max-width: 500px;
+    margin: 0 auto;
+
+    img{
+      max-width: 100%;
+    }
+  }
+
+  &-cta{
+    width: 100px;
+    .styleguide-cta;
+  }
+
+}
