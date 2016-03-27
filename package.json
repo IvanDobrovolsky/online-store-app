@@ -1,0 +1,24 @@
+{
+  "name": "online-store-app",
+  "version": "1.0.0",
+  "description": "This is simple online store of computers implemented with React.js to demonstrate how this library makes our lives easier and the way we create apps more logical and  straightforward.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanDobrovolsky/online-store-app.git"
+  },
+  "keywords": [
+    "react",
+    "flux"
+  ],
+  "author": "Ivan Dobrovolsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanDobrovolsky/online-store-app/issues"
+  },
+  "homepage": "https://github.com/IvanDobrovolsky/online-store-app#readme"
+}
