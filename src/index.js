@@ -11,4 +11,6 @@ require("./assets/stylesheets/main.less");
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<h1>React application(Online store)</h1>, document.getElementById('app'));
+import App from './components/app';
+
+ReactDOM.render(<App/>, document.getElementById('app'));

@@ -16,9 +16,12 @@ app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig
 app.use(webpackHotMiddleware(compiler));
 
 
-//Handling / route (sending index.html from the server)
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+//Setting public directory for front end
+app.use(express.static(__dirname + '/src'));
+
+//This is to allow routing on frontend
+app.get('*', (request, response) => {
+    response.sendFile(__dirname + '/index.html');
 });
 
 //Listening to client requests
