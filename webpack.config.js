@@ -38,6 +38,10 @@ module.exports = {
                 ],
                 test: /\.js$/,
                 plugins: ['transform-runtime']
+            },
+            {
+                test: /\.less$/,
+                loader: "style!css!less"
             }
         ]
     }
