@@ -1,0 +1,25 @@
+@import '../palette';
+
+.navigation{
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+
+
+  &-items{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &-item{
+    cursor: pointer;
+    color: @color_primary;
+
+    &-active{
+      cursor: pointer;
+      color: @color_secondary;
+      font-size: 17px;
+    }
+  }
+}
