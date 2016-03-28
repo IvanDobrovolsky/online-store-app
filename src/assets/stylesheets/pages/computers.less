@@ -1,0 +1,26 @@
+@import '../palette';
+@import '../styleguide';
+
+.page_computers{
+  text-align: center;
+
+  &-title{
+    .styleguide-title;
+  }
+
+  &-list{
+    font-family: Arial, sans-serif;
+    text-align: right;
+
+    &-item{
+      text-align: left;
+      max-width: 900px;
+      margin: 10px auto 100px;
+      border-bottom: 2px @color_secondary solid;
+
+      &--description{
+        font-size: 14px;
+      }
+    }
+  }
+}
