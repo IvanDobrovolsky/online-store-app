@@ -1,0 +1,49 @@
+@import '../palette';
+@import '../styleguide';
+
+.page_computer-preview{
+  font-family: Arial, sans-serif;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+
+  &--title{
+    .styleguide-title;
+  }
+
+  &--description{
+    text-align: left;
+    padding: 25px;
+    font-size: 15px;
+    display: block;
+    font-style: italic;
+  }
+
+  &--image{
+    img{
+      max-width: 100%;
+    }
+  }
+
+  &--brand, &--price, &--date, &--details{
+    text-align: left;
+  }
+
+  &--details{
+    &-detail{
+      padding: 10px;
+      font-size: 14px;
+
+      &::before{
+        content: " - ";
+      }
+    }
+  }
+
+  &--back{
+    .styleguide-cta;
+    width: 150px;
+    margin-bottom: 100px;
+  }
+
+}

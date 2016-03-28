@@ -7,16 +7,18 @@ import ComputersPage from './pages/computers/computers-page.component';
 import ShoppingCartPage from './pages/cart/cart-page.component';
 import AdminPage from './pages/admin/admin-page.component';
 import PageNotFound from './pages/404';
+import ComputerPreviewPage from './pages/computers/computer-preview.component';
 
 export default class App extends React.Component{
     render(){
         return (<Router history={browserHistory}>
                     <Route path="/">
-                        <IndexRoute              component={HomePage} />
-                        <Route path="/computers" component={ComputersPage}/>
-                        <Route path="/cart"      component={ShoppingCartPage}/>
-                        <Route path="/admin"     component={AdminPage}/>
-                        <Route path="*"          component={PageNotFound}/>
+                        <IndexRoute                  component={HomePage} />
+                        <Route path="/computers"     component={ComputersPage}/>
+                        <Route path="/computers/:id" component={ComputerPreviewPage}/>
+                        <Route path="/cart"          component={ShoppingCartPage}/>
+                        <Route path="/admin"         component={AdminPage}/>
+                        <Route path="*"              component={PageNotFound}/>
                     </Route>
                 </Router>)
     }

@@ -24,6 +24,7 @@ export default class ComputersListItem extends React.Component{
                     <p className="page_computers-list-item--brand"><strong><i>Brand: </i></strong> {this.props.brand}</p>
                     <p className="page_computers-list-item--price"><strong><i>Price: </i></strong>  {this.props.price}$</p>
                     <p className="page_computers-list-item--date"><strong><i>Added: </i></strong> {new Date(this.props.date).toLocaleString()}</p>
+                    <a className="page_computers-list-item--more" href="#" onClick={() => browserHistory.push(`/computers/${this.props.id}`)}><strong>Read more</strong></a>
                 </div>
             </div>
         )

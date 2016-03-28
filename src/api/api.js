@@ -5,7 +5,7 @@ function getAllComputers(){
 }
 
 function getComputerById(id){
-    return computers.find(computer => computer.id === id);
+    return computers.find(computer => computer.id == id);
 }
 
 function getAllBrandNames(){
