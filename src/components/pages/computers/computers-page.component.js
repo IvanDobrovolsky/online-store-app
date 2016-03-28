@@ -4,7 +4,7 @@ import Navigation from '../../common/navigation.component';
 import ComputersList from './computers-list.component';
 
 //mock data
-import computers from './../../../mockups/computers';
+import api from './../../../api/api';
 
 export default class ComputersPage extends React.Component{
     render(){
@@ -13,7 +13,7 @@ export default class ComputersPage extends React.Component{
                 <Navigation activeTab={'computers'}/>
                 <div className="page_computers">
                     <h1 className="page_computers-title">Computers catalog</h1>
-                    <ComputersList computers = {computers}/>
+                    <ComputersList computers = {api.getAllComputers()}/>
                 </div>
             </div>
         )
