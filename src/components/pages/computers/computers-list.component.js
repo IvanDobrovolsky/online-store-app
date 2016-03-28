@@ -18,8 +18,7 @@ export default class ComputersList extends React.Component{
                                                   description={computer.description}
                                                   image={computer.image}
                                                   brand={computer.brand}
-                                                  price={computer.price}
-                                                  date={computer.date}/>
+                                                  price={computer.price}/>
                     })}
                 </div>
             </div>

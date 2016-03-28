@@ -14,12 +14,34 @@
 
     &-item{
       text-align: left;
-      max-width: 900px;
+      max-width: 600px;
       margin: 10px auto 100px;
       border-bottom: 2px @color_secondary solid;
 
       &--description{
         font-size: 14px;
+      }
+
+      &--image{
+        max-width: 600px;
+
+        img{
+          max-width: 100%;
+        }
+      }
+
+      &--more{
+        .styleguide-cta;
+        margin: 0 0 25px 10px ;
+        width: 50px;
+        display: inline-block;
+      }
+
+      &--add{
+        .styleguide-cta;
+        margin: 0 0 25px 20px ;
+        width: 50px;
+        display: inline-block;
       }
     }
   }
