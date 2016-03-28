@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 
 //TODO Add image loader to webpack
 
@@ -11,7 +12,7 @@ export default class NotFoundPage extends React.Component{
                    <img src="http://72gpf1za5iq428ekh3r7qjc1.wpengine.netdna-cdn.com/wp-content/uploads/2015/11/error.jpg"/>
                    <p>404</p>
                </div>
-               <a href="/" className="page_not-found-cta">Home</a>
+               <a href="#" className="page_not-found-cta" onClick={() => browserHistory.push('/')}>Home</a>
             </div>
         )
     }

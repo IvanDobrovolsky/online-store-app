@@ -1,6 +1,8 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 
 //TODO: Add file loader to webpack
+
 export default class HomePage extends React.Component{
     render(){
         return (
@@ -11,7 +13,7 @@ export default class HomePage extends React.Component{
                 <div className="page_home-image">
                     <img src="http://formatjs.io/img/react.svg"/>
                 </div>
-                <a className="page_home-cta" href="/computers">Get started</a>
+                <a className="page_home-cta" onClick={() => browserHistory.push('/computers')}>Get started</a>
             </div>
         )
     }
