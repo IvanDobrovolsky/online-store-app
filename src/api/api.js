@@ -4,6 +4,16 @@ function getAllComputers(){
     return computers;
 }
 
+function findComputers(filters){
+
+    const isComputerPriceInRange = (computer, priceFrom, priceTo) => computer.price >= +priceFrom && computer.price <= +priceTo;
+    const isComputerBrandCorrect = (computer, brandsList) => brandsList.includes(computer.brand);
+
+   return getAllComputers()
+        .filter(computer => isComputerPriceInRange(computer, filters.price.from, filters.price.to))
+        .filter(computer => isComputerBrandCorrect(computer, filters.brands));
+}
+
 function getComputerById(id){
     return computers.find(computer => computer.id == id);
 }
@@ -15,5 +25,6 @@ function getAllBrandNames(){
 export default {
     getAllComputers,
     getComputerById,
-    getAllBrandNames
+    getAllBrandNames,
+    findComputers
 }

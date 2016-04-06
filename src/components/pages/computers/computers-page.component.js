@@ -10,37 +10,54 @@ export default class ComputersPage extends React.Component{
 
     constructor(){
         super();
-        this.filterByPrice = this.filterByPrice.bind(this);
+        this.toggleFilters = this.toggleFilters.bind(this);
+        this.filterComputers = this.filterComputers.bind(this);
         this.handlePriceChangeFrom = this.handlePriceChangeFrom.bind(this);
         this.handlePriceChangeTo = this.handlePriceChangeTo.bind(this);
+        this.handleCheckboxBrandChange = this.handleCheckboxBrandChange.bind(this);
     }
 
     state = {
         computers: api.getAllComputers(),
-        filters: {
-            price: {
-                from: 500, //default values
-                to: 1000
-            }
-        }
+        filtersEnabled: false,
+        filtersByPrice: {
+            from: "0",
+            to: "2000"
+        },
+        filtersByBrand: []
     };
 
+    toggleFilters(){
+        this.setState({filtersEnabled: !this.state.filtersEnabled});
 
-    filterByPrice(e){
-        e.preventDefault();
-        this.setState({
-            computers: api
-                .getAllComputers()
-                .filter(computer => computer.price <= this.state.filters.price.to && computer.price >= this.state.filters.price.from)
-        })
+        if(this.state.filtersEnabled){
+            this.setState({computers: api.getAllComputers()});
+        }
     }
 
-    handlePriceChangeFrom(e){
-        this.setState({filters: {price: {from: e.target.value, to: this.state.filters.price.to}}});
+    handlePriceChangeFrom(event){
+        this.setState({filtersByPrice: {from: event.target.value, to: this.state.filtersByPrice.to}});
     }
 
-    handlePriceChangeTo(e){
-        this.setState({filters: {price: {from: this.state.filters.price.from, to: e.target.value}}});
+    handlePriceChangeTo(event){
+        this.setState({filtersByPrice: {from: this.state.filtersByPrice.from, to: event.target.value}});
+    }
+
+    handleCheckboxBrandChange(event){
+        let brandsList = this.state.filtersByBrand;
+        let brand = event.target.value;
+
+        brandsList.includes(brand) ? brandsList.splice(brandsList.indexOf(brand), 1) : brandsList.push(brand);
+
+        this.setState({filtersByBrand: brandsList});
+    }
+
+    filterComputers(event) {
+        event.preventDefault();
+
+        let filters = {price: this.state.filtersByPrice, brands: this.state.filtersByBrand};
+
+        this.setState({computers: api.findComputers(filters)})
     }
 
     render(){
@@ -50,13 +67,26 @@ export default class ComputersPage extends React.Component{
                 <div className="page_computers">
                     <h1 className="page_computers-title">Computers catalog</h1>
                     <div className="flex-container flex-justify-space-around">
-                        <div className="page_computers-filters">
-                            <h2 className="page_computers-filters--category">Filter by price:</h2>
-                            <form onSubmit={this.filterByPrice}>
-                                From: <input type="number" name="from" onChange={this.handlePriceChangeFrom} value={this.state.filters.price.from}/>
-                                To:   <input type="number" name="to"   onChange={this.handlePriceChangeTo}   value={this.state.filters.price.to}/>
-                                      <input type="submit" value="Filter"/>
-                            </form>
+                        <div className="flex-container flex-direction-column">
+                            <div className="page_computers-filters--enable">
+                                <input type="checkbox" onChange={this.toggleFilters}/> {!this.state.filtersEnabled ? 'Enable filters' : 'Filters enabled (click to disable)'}
+                            </div>
+                            <div className="page_computers-filters" style={{display: this.state.filtersEnabled ? 'block' : 'none'}}>
+                                <form onSubmit={this.filterComputers}>
+                                    <div className="page_computer-filters-price">
+                                        <h2 className="page_computers-filters--category">Filter by price:</h2>
+                                        From: <input type="number" name="from" onChange={this.handlePriceChangeFrom} value={this.state.filtersByPrice.from} required/>
+                                        To:   <input type="number" name="to"   onChange={this.handlePriceChangeTo}   value={this.state.filtersByPrice.to}   required/>
+                                    </div>
+                                    <div className="page_computer-filters-brand">
+                                        <h2 className="page_computers-filters--category">Filter by brand:</h2>
+                                        {api.getAllBrandNames().map((brand, index) => {
+                                            return <div key={index} ><input type="checkbox" onChange={this.handleCheckboxBrandChange} name={brand} value={brand}/> {brand}<br/></div>
+                                        })}
+                                    </div>
+                                    <input type="submit" value="Filter"/>
+                                </form>
+                            </div>
                         </div>
                         <ComputersList computers = {this.state.computers}/>
                     </div>

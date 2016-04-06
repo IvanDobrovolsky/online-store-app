@@ -11,7 +11,7 @@ export default class ComputersList extends React.Component{
         return (
             <div>
                 <div className="page_computers-list">
-                    {this.props.computers.map(computer => {
+                    {this.props.computers.length == 0 ? <h2>No computers in the catalog</h2> : this.props.computers.map(computer => {
                         return <ComputersListItem key={computer.id}
                                                   id={computer.id}
                                                   title={computer.title}
