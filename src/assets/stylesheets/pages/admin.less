@@ -1,0 +1,32 @@
+@import '../palette';
+@import '../styleguide';
+
+.page_admin {
+  text-align: center;
+
+  &-title {
+    .styleguide-title;
+  }
+
+  &-computers-list{
+
+    &-header{
+      div:first-child{
+        text-align: left;
+      }
+      padding: 15px;
+    }
+
+    &-item{
+
+      div{
+        outline: 1px solid @color_primary;
+        padding: 15px;
+
+        &:first-child{
+          text-align: left;
+        }
+      }
+    }
+  }
+}

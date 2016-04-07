@@ -22,9 +22,17 @@ function getAllBrandNames(){
     return Array.from(new Set(computers.map(computer => computer.brand)));
 }
 
+function removeComputer(id){
+    let computerToRemove = getComputerById(id);
+    if(computerToRemove){
+        computers.splice(computers.indexOf(computerToRemove), 1);
+    }
+}
+
 export default {
     getAllComputers,
     getComputerById,
     getAllBrandNames,
-    findComputers
+    findComputers,
+    removeComputer
 }
