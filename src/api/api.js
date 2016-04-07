@@ -29,10 +29,15 @@ function removeComputer(id){
     }
 }
 
+function createNewComputer(computer){
+        computers.unshift(computer);
+}
+
 export default {
     getAllComputers,
     getComputerById,
     getAllBrandNames,
     findComputers,
-    removeComputer
+    removeComputer,
+    createNewComputer
 }

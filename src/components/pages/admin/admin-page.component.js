@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigation from '../../common/navigation.component';
+import {browserHistory} from 'react-router';
 
 import api from './../../../api/api';
 
@@ -36,7 +37,7 @@ export default class AdminPage extends React.Component{
                             <div className="page_admin-computers-list-item--remove flex-grid-1">Remove computer</div>
                         </div>
                         <ul>
-                            {computers.length <= 0 ? <li>There is no computers</li> : computers.map(computer => {
+                            {computers.length <= 0 ? <li>There are no computers</li> : computers.map(computer => {
                                 return (<li className="page_admin-computers-list-item flex-container flex-justify-space-around" key={computer.id}>
                                             <div className="page_admin-computers-list-item--title  flex-grid-3">{`${computer.brand} ${computer.title}`}</div>
                                             <div className="page_admin-computers-list-item--price  flex-grid-1">{computer.price}</div>
@@ -45,6 +46,7 @@ export default class AdminPage extends React.Component{
                                         </li>)
                             })}
                         </ul>
+                        <a className="page_admin--add-new-button" href="#" onClick={() => browserHistory.push('/admin/new')}>Create new</a>
                     </div>
                 </div>
             </div>
