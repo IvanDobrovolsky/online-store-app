@@ -33,11 +33,19 @@ function createNewComputer(computer){
         computers.unshift(computer);
 }
 
+function updateComputer(updatedComputer){
+    if(updatedComputer){
+        let index = computers.indexOf(getComputerById(updatedComputer.id));
+        computers[index] = updatedComputer;
+    }
+}
+
 export default {
     getAllComputers,
     getComputerById,
     getAllBrandNames,
     findComputers,
     removeComputer,
-    createNewComputer
+    createNewComputer,
+    updateComputer
 }

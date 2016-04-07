@@ -41,7 +41,7 @@ export default class AdminPage extends React.Component{
                                 return (<li className="page_admin-computers-list-item flex-container flex-justify-space-around" key={computer.id}>
                                             <div className="page_admin-computers-list-item--title  flex-grid-3">{`${computer.brand} ${computer.title}`}</div>
                                             <div className="page_admin-computers-list-item--price  flex-grid-1">{computer.price}</div>
-                                            <div className="page_admin-computers-list-item--edit   flex-grid-1"><button>Edit</button></div>
+                                            <div className="page_admin-computers-list-item--edit   flex-grid-1"><button onClick={() => browserHistory.push(`/admin/${computer.id}/edit`)}>Edit</button></div>
                                             <div className="page_admin-computers-list-item--remove flex-grid-1"><button onClick={this.removeComputer.bind(this, computer.id)}>Remove</button></div>
                                         </li>)
                             })}
