@@ -1,7 +1,7 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-
 import api from './../../../api/api';
+import toastr from 'toastr';
 
 export default class AdminEditExisting extends React.Component{
 
@@ -31,14 +31,14 @@ export default class AdminEditExisting extends React.Component{
     componentWillMount(){
         api
             .getComputerById(this.props.params.id)
-            .then(computer => {
+            .then(response => {
                 this.setState({
-                    title: computer.title,
-                    image: computer.image,
-                    description: computer.description,
-                    price: computer.price,
-                    details: computer.details,
-                    brand: computer.brand
+                    title: response.data.title,
+                    image: response.data.image,
+                    description: response.data.description,
+                    price: response.data.price,
+                    details: response.data.details,
+                    brand: response.data.brand
                 });
             });
     }
@@ -47,7 +47,10 @@ export default class AdminEditExisting extends React.Component{
         event.preventDefault();
 
         let computerToUpdate = Object.assign(this.state, {id: parseInt(this.props.params.id), date: Date.now()});
-        api.updateComputer(computerToUpdate);
+
+        api
+           .updateComputer(computerToUpdate)
+           .then(response => toastr.success(response.message));
 
         browserHistory.push('/admin');
     }

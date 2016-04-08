@@ -1,7 +1,7 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-
 import api from './../../../api/api';
+import toast from 'toastr';
 
 export default class AdminCreateNew extends React.Component{
 
@@ -30,7 +30,10 @@ export default class AdminCreateNew extends React.Component{
     addNewConfirm(event){
         event.preventDefault();
 
-        api.createNewComputer(Object.assign(this.state, {id: Date.now(), date: Date.now()}));
+        let newComputer = Object.assign(this.state, {id: Date.now(), date: Date.now()});
+        api
+            .createNewComputer(newComputer)
+            .then(response => toast.success(response.message));
 
         browserHistory.push('/admin');
     }

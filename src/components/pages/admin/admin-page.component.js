@@ -1,8 +1,8 @@
 import React from 'react';
 import Navigation from '../../common/navigation.component';
 import {browserHistory} from 'react-router';
-
 import api from './../../../api/api';
+import toastr from 'toastr';
 
 export default class AdminPage extends React.Component{
 
@@ -16,15 +16,17 @@ export default class AdminPage extends React.Component{
     componentWillMount(){
         api
             .getAllComputers()
-            .then(computers => this.setState({computers}));
+            .then(response => this.setState({computers: response.data}));
     }
 
     removeComputer(id){
         if(confirm("Are you sure that you want to remove the computer?")){
-            api.removeComputer(id);
+            api
+                .removeComputer(id)
+                .then(response => toastr.success(response.message));
             api
                 .getAllComputers()
-                .then(computers => this.setState({computers}));
+                .then(response => this.setState({computers: response.data}));
         }
     }
 

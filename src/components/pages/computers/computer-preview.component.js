@@ -30,16 +30,16 @@ export default class ComputerPreviewPage extends React.Component{
     componentWillMount(){
         api
            .getComputerById(this.props.params.id)
-           .then(computer => {
+           .then(response => {
                this.setState({
-                   title: computer.title,
-                   id: computer.id,
-                   date: computer.date,
-                   image: computer.image,
-                   description: computer.description,
-                   price: computer.price,
-                   details: computer.details,
-                   brand: computer.brand
+                   title: response.data.title,
+                   id: response.data.id,
+                   date: response.data.date,
+                   image: response.data.image,
+                   description: response.data.description,
+                   price: response.data.price,
+                   details: response.data.details,
+                   brand: response.data.brand
                });
            });
     }

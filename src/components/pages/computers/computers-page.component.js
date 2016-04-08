@@ -31,11 +31,11 @@ export default class ComputersPage extends React.Component{
     componentWillMount(){
             api
                .getAllComputers()
-               .then(computers => this.setState({computers}));
+               .then(response => this.setState({computers: response.data}));
 
             api
                .getAllBrandNames()
-               .then(brands => this.setState({brands}));
+               .then(response => this.setState({brands: response.data}));
     }
 
     toggleFilters(){
@@ -43,7 +43,7 @@ export default class ComputersPage extends React.Component{
 
         if(this.state.filtersEnabled){
             api.getAllComputers()
-                .then(computers => this.setState({computers}));
+                .then(response => this.setState({computers: response.data}));
         }
     }
 
@@ -71,8 +71,8 @@ export default class ComputersPage extends React.Component{
 
         api
             .findComputers(filters)
-            .then(filteredComputers => {
-                this.setState({computers: filteredComputers});
+            .then(response => {
+                this.setState({computers: response.data});
             })
     }
 
