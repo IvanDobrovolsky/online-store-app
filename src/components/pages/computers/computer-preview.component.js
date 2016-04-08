@@ -7,7 +7,7 @@ import api from './../../../api/api';
 export default class ComputerPreviewPage extends React.Component{
 
     static defaultProps = {
-        id: null,
+        _id: null,
         title: null,
         date: null,
         image: null,
@@ -18,7 +18,7 @@ export default class ComputerPreviewPage extends React.Component{
     };
 
     state = {
-        id: this.props.id,
+        _id: this.props.id,
         title: this.props.title,
         image: this.props.image,
         description: this.props.description,
@@ -33,7 +33,7 @@ export default class ComputerPreviewPage extends React.Component{
            .then(response => {
                this.setState({
                    title: response.data.title,
-                   id: response.data.id,
+                   _id: response.data._id,
                    date: response.data.date,
                    image: response.data.image,
                    description: response.data.description,

@@ -30,7 +30,7 @@ export default class AdminCreateNew extends React.Component{
     addNewConfirm(event){
         event.preventDefault();
 
-        let newComputer = Object.assign(this.state, {id: Date.now(), date: Date.now()});
+        let newComputer = Object.assign(this.state, {_id: Date.now(), date: Date.now()});
         api
             .createNewComputer(newComputer)
             .then(response => toast.success(response.message));

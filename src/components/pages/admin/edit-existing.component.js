@@ -46,7 +46,7 @@ export default class AdminEditExisting extends React.Component{
     updateComputer(event){
         event.preventDefault();
 
-        let computerToUpdate = Object.assign(this.state, {id: parseInt(this.props.params.id), date: Date.now()});
+        let computerToUpdate = Object.assign(this.state, {_id: parseInt(this.props.params.id), date: Date.now()});
 
         api
            .updateComputer(computerToUpdate)

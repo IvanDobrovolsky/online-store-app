@@ -12,8 +12,8 @@ export default class ComputersList extends React.Component{
             <div>
                 <div className="page_computers-list">
                     {this.props.computers.length == 0 ? <h2>No computers in the catalog</h2> : this.props.computers.map(computer => {
-                        return <ComputersListItem key={computer.id}
-                                                  id={computer.id}
+                        return <ComputersListItem key={computer._id}
+                                                  _id={computer._id}
                                                   title={computer.title}
                                                   description={computer.description}
                                                   image={computer.image}

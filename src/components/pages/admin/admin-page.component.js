@@ -48,11 +48,11 @@ export default class AdminPage extends React.Component{
                         </div>
                         <ul>
                             {computers.length <= 0 ? <li>There are no computers</li> : computers.map(computer => {
-                                return (<li className="page_admin-computers-list-item flex-container flex-justify-space-around" key={computer.id}>
+                                return (<li className="page_admin-computers-list-item flex-container flex-justify-space-around" key={computer._id}>
                                             <div className="page_admin-computers-list-item--title  flex-grid-3">{`${computer.brand} ${computer.title}`}</div>
                                             <div className="page_admin-computers-list-item--price  flex-grid-1">{computer.price}</div>
-                                            <div className="page_admin-computers-list-item--edit   flex-grid-1"><button onClick={() => browserHistory.push(`/admin/${computer.id}/edit`)}>Edit</button></div>
-                                            <div className="page_admin-computers-list-item--remove flex-grid-1"><button onClick={this.removeComputer.bind(this, computer.id)}>Remove</button></div>
+                                            <div className="page_admin-computers-list-item--edit   flex-grid-1"><button onClick={() => browserHistory.push(`/admin/${computer._id}/edit`)}>Edit</button></div>
+                                            <div className="page_admin-computers-list-item--remove flex-grid-1"><button onClick={this.removeComputer.bind(this, computer._id)}>Remove</button></div>
                                         </li>)
                             })}
                         </ul>

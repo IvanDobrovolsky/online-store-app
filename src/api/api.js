@@ -8,7 +8,7 @@ function getAllComputers(){
             .then(response => response.json())
 }
 
-//TODO: Implement real api call. For now filtering functionality is not working!
+
 function findComputers(filters){
     return fetch('/api/computers/filter', {
         method: 'post',
@@ -42,7 +42,7 @@ function createNewComputer(computer){
 
 function updateComputer(updatedComputer){
     if(updatedComputer){
-        return fetch(`/api/computers/${updatedComputer.id}`, {
+        return fetch(`/api/computers/${updatedComputer._id}`, {
                     method: 'put',
                     headers,
                     body: JSON.stringify(updatedComputer)

@@ -4,6 +4,11 @@ module.exports = (app, express) => {
     //Api router
     const apiRouter = express.Router();
 
+    const db = require('../db-utils');
+
+    //Connecting to the database
+    db.setUpConnection();
+
 
 //Middleware for Logging each request to the console
     apiRouter.use((request, response, next) => {
@@ -13,16 +18,25 @@ module.exports = (app, express) => {
 
 
 //Mock data
-    const computers = require('./../../mockups/computers.js');
 
-    const getComputerById = id => computers.find(computer => computer.id == id);
-
+    //Getting all computers
     apiRouter.get('/computers', (request, response) => {
-        response.json({
-            success: true,
-            message: "The data was successfully retrieved!",
-            data: computers
-        });
+        db
+          .getAllComputers()
+          .then(computers => {
+              response.json({
+                  success: true,
+                  message: "The data was successfully retrieved!",
+                  data: computers
+              });
+          })
+          .catch(error => {
+              response.json({
+                  success: false,
+                  message: "Could fetch data " + error,
+                  data: null
+              });
+          });
     });
 
     apiRouter.post('/computers/filter', (request, response) => {
@@ -32,23 +46,39 @@ module.exports = (app, express) => {
         const isComputerPriceInRange = (computer, priceFrom, priceTo) => computer.price >= +priceFrom && computer.price <= +priceTo;
         const isComputerBrandCorrect = (computer, brandsList) => brandsList.indexOf(computer.brand) >= 0;
 
-        let filteredComputers = computers
-            .filter(computer => isComputerPriceInRange(computer, filters.price.from, filters.price.to))
-            .filter(computer => isComputerBrandCorrect(computer, filters.brands));
+        db
+            .getAllComputers()
+            .then(computers => {
 
-        response.json({
-            success: true,
-            message: "The data was successfully filtered!",
-            data: filteredComputers
-        });
+                let filteredComputers = computers
+                    .filter(computer => isComputerPriceInRange(computer, filters.price.from, filters.price.to))
+                    .filter(computer => isComputerBrandCorrect(computer, filters.brands));
+
+                response.json({
+                    success: true,
+                    message: "The data was successfully filtered!",
+                    data: filteredComputers
+                });
+
+            })
+            .catch(error => {
+                response.json({
+                    success: false,
+                    message: `Couldn't fetch data ${error}`,
+                    data: null
+                });
+            });
+
     });
 
+    //Creating new computer
     apiRouter.post('/computers', (request, response) => {
 
         const newComputer = request.body;
 
         if(newComputer){
-            computers.unshift(newComputer);
+
+            db.createNewComputer(newComputer);
 
             response.json({
                 success: true,
@@ -58,65 +88,96 @@ module.exports = (app, express) => {
         }
     });
 
+    //Getting single computer by id
     apiRouter.get('/computers/:id', (request, response) => {
 
-        let computer = computers.find(computer => computer.id == request.params.id);
+        const id = request.params.id;
 
-        if(computer){
-            response.json({
-                success: true,
-                message: "The data was successfully retrieved",
-                data: computer
-            });
-        } else {
-            response.json({
-                success: false,
-                message: "The data wasn't found!",
-                data: null
-            });
-        }
+        db
+          .getComputerById(id)
+          .then(computer => {
+              response.json({
+                  success: true,
+                  message: "The data was successfully retrieved",
+                  data: computer
+              });
+          })
+          .catch(error => {
+              response.json({
+                  success: false,
+                  message: "The data wasn't found!",
+                  data: null
+              });
+          });
     });
 
+    //Updating existing computer
     apiRouter.put('/computers/:id', (request, response) => {
 
         const id = request.params.id;
         const computerToUpdate = request.body;
 
-        if(id && computerToUpdate){
-            let index = computers.indexOf(getComputerById(request.params.id));
-            computers[index] = request.body;
-
-            response.json({
-                success: true,
-                message: "The data was successfully updated!",
-                data: null
-            });
-        }
+        db
+          .updateExistingComputer(computerToUpdate)
+          .then(data => {
+              response.json({
+                  success: true,
+                  message: "Successfully updated!",
+                  data: null
+              });
+          })
+          .catch(error => {
+              response.json({
+                  success: false,
+                  message: `Cannot update the computer ${error}`,
+                  data: null
+              });
+          });
     });
 
+    //Deleting existing computer
     apiRouter.delete('/computers/:id', (request, response) => {
-        let computerToRemove = getComputerById(request.params.id);
-        if(computerToRemove){
-            computers.splice(computers.indexOf(computerToRemove), 1);
-            response.json({
-                success: true,
-                message: "The data was successfully deleted!",
-                data: null
+
+        const id = request.params.id;
+
+        db
+          .deleteExistingComputer(id)
+            .then(data => {
+                response.json({
+                    success: true,
+                    message: "Successfully deleted!",
+                    data: null
+                });
+            })
+            .catch(error => {
+                response.json({
+                    success: false,
+                    message: `Cannot delete the computer! ${error}`,
+                    data: null
+                });
             });
-        }
     });
 
+
+    //Getting all brand names
     apiRouter.get('/brands', (request, response) => {
-
-        const brandNames = Array.from(new Set(computers.map(computer => computer.brand)));
-
-        if(brandNames){
-            response.json({
-                success: true,
-                message: "The data was successfully retrieved!",
-                data: brandNames
+        db
+            .getAllComputers()
+            .then(computers => {
+                const brandNames = Array.from(new Set(computers.map(computer => computer.brand)));
+                response.json({
+                    success: true,
+                    message: "The data was successfully retrieved!",
+                    data: brandNames
+                });
+            })
+            .catch(error => {
+                response.json({
+                    success: false,
+                    message: "Could fetch data " + error,
+                    data: null
+                });
             });
-        }
     });
 
     return apiRouter;
