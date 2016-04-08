@@ -29,14 +29,24 @@ export default class AdminEditExisting extends React.Component{
 
 
     componentWillMount(){
-        const {title, date, image, description, price, details, brand} = api.getComputerById(this.props.params.id);
-        this.setState({title, date, image, description, price, details, brand});
+        api
+            .getComputerById(this.props.params.id)
+            .then(computer => {
+                this.setState({
+                    title: computer.title,
+                    image: computer.image,
+                    description: computer.description,
+                    price: computer.price,
+                    details: computer.details,
+                    brand: computer.brand
+                });
+            });
     }
 
     updateComputer(event){
         event.preventDefault();
 
-        let computerToUpdate = Object.assign(this.state, {id: parseInt(this.props.params.id), date: Date.now()})
+        let computerToUpdate = Object.assign(this.state, {id: parseInt(this.props.params.id), date: Date.now()});
         api.updateComputer(computerToUpdate);
 
         browserHistory.push('/admin');

@@ -1,4 +1,4 @@
-export default [
+module.exports = [
     {
         id: 1459162181744,
         title: "Macbook Pro 15",

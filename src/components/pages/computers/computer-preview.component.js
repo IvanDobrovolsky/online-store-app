@@ -28,8 +28,20 @@ export default class ComputerPreviewPage extends React.Component{
     };
 
     componentWillMount(){
-        const {title, id, date, image, description, price, details, brand} = api.getComputerById(this.props.params.id);
-        this.setState({title, id, date, image, description, price, details, brand});
+        api
+           .getComputerById(this.props.params.id)
+           .then(computer => {
+               this.setState({
+                   title: computer.title,
+                   id: computer.id,
+                   date: computer.date,
+                   image: computer.image,
+                   description: computer.description,
+                   price: computer.price,
+                   details: computer.details,
+                   brand: computer.brand
+               });
+           });
     }
 
     render(){

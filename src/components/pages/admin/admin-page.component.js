@@ -11,12 +11,20 @@ export default class AdminPage extends React.Component{
         this.removeComputer = this.removeComputer.bind(this);
     }
 
-    state = {computers: api.getAllComputers()};
+    state = {computers: []};
+
+    componentWillMount(){
+        api
+            .getAllComputers()
+            .then(computers => this.setState({computers}));
+    }
 
     removeComputer(id){
         if(confirm("Are you sure that you want to remove the computer?")){
             api.removeComputer(id);
-            this.setState({computers: api.getAllComputers()});
+            api
+                .getAllComputers()
+                .then(computers => this.setState({computers}));
         }
     }
 

@@ -1,9 +1,14 @@
-import computers from './../mockups/computers';
+
+//Setting headers
+const headers = new Headers();
+headers.set('Content-Type', 'application/json');
 
 function getAllComputers(){
-    return computers;
+    return fetch('/api/computers')
+            .then(response => response.json())
 }
 
+//TODO: Implement real api call. For now filtering functionality is not working!
 function findComputers(filters){
 
     const isComputerPriceInRange = (computer, priceFrom, priceTo) => computer.price >= +priceFrom && computer.price <= +priceTo;
@@ -15,28 +20,35 @@ function findComputers(filters){
 }
 
 function getComputerById(id){
-    return computers.find(computer => computer.id == id);
+    return fetch(`/api/computers/${id}`)
+        .then(response => response.json());
 }
 
 function getAllBrandNames(){
-    return Array.from(new Set(computers.map(computer => computer.brand)));
+    return fetch('/api/brands')
+        .then(response => response.json());
 }
 
 function removeComputer(id){
-    let computerToRemove = getComputerById(id);
-    if(computerToRemove){
-        computers.splice(computers.indexOf(computerToRemove), 1);
-    }
+    return fetch(`/api/computers/${id}`, {method: 'delete'})
+            .then(response => response.json());
 }
 
 function createNewComputer(computer){
-        computers.unshift(computer);
+        return fetch('/api/computers', {
+            method: 'post',
+            headers,
+            body: JSON.stringify(computer)
+        }).then(response => response.json());
 }
 
 function updateComputer(updatedComputer){
     if(updatedComputer){
-        let index = computers.indexOf(getComputerById(updatedComputer.id));
-        computers[index] = updatedComputer;
+        return fetch(`/api/computers/${updatedComputer.id}`, {
+                    method: 'put',
+                    headers,
+                    body: JSON.stringify(updatedComputer)
+               }).then(response => response.json());
     }
 }
 

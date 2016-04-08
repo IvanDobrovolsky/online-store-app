@@ -18,7 +18,8 @@ export default class ComputersPage extends React.Component{
     }
 
     state = {
-        computers: api.getAllComputers(),
+        computers: [],
+        brands: [],
         filtersEnabled: false,
         filtersByPrice: {
             from: "0",
@@ -27,11 +28,22 @@ export default class ComputersPage extends React.Component{
         filtersByBrand: []
     };
 
+    componentWillMount(){
+            api
+               .getAllComputers()
+               .then(computers => this.setState({computers}));
+
+            api
+               .getAllBrandNames()
+               .then(brands => this.setState({brands}));
+    }
+
     toggleFilters(){
         this.setState({filtersEnabled: !this.state.filtersEnabled});
 
         if(this.state.filtersEnabled){
-            this.setState({computers: api.getAllComputers()});
+            api.getAllComputers()
+                .then(computers => this.setState({computers}));
         }
     }
 
@@ -80,7 +92,7 @@ export default class ComputersPage extends React.Component{
                                     </div>
                                     <div className="page_computer-filters-brand">
                                         <h2 className="page_computers-filters--category">Filter by brand:</h2>
-                                        {api.getAllBrandNames().map((brand, index) => {
+                                        {this.state.brands.map((brand, index) => {
                                             return <div key={index} ><input type="checkbox" onChange={this.handleCheckboxBrandChange} name={brand} value={brand}/> {brand}<br/></div>
                                         })}
                                     </div>
