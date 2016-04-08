@@ -10,13 +10,11 @@ function getAllComputers(){
 
 //TODO: Implement real api call. For now filtering functionality is not working!
 function findComputers(filters){
-
-    const isComputerPriceInRange = (computer, priceFrom, priceTo) => computer.price >= +priceFrom && computer.price <= +priceTo;
-    const isComputerBrandCorrect = (computer, brandsList) => brandsList.includes(computer.brand);
-
-   return getAllComputers()
-        .filter(computer => isComputerPriceInRange(computer, filters.price.from, filters.price.to))
-        .filter(computer => isComputerBrandCorrect(computer, filters.brands));
+    return fetch('/api/computers/filter', {
+        method: 'post',
+        headers,
+        body: JSON.stringify(filters)
+    }).then(response => response.json())
 }
 
 function getComputerById(id){

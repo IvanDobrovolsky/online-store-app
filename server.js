@@ -44,6 +44,20 @@ apiRouter.get('/computers', (request, response) => {
     response.json(computers);
 });
 
+apiRouter.post('/computers/filter', (request, response) => {
+
+    const filters = request.body;
+
+    const isComputerPriceInRange = (computer, priceFrom, priceTo) => computer.price >= +priceFrom && computer.price <= +priceTo;
+    const isComputerBrandCorrect = (computer, brandsList) => brandsList.indexOf(computer.brand) >= 0;
+
+    let filteredComputers = computers
+        .filter(computer => isComputerPriceInRange(computer, filters.price.from, filters.price.to))
+        .filter(computer => isComputerBrandCorrect(computer, filters.brands));
+
+    response.json(filteredComputers);
+});
+
 apiRouter.post('/computers', (request, response) => {
     const newComputer = request.body;
     if(newComputer){

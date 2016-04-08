@@ -69,7 +69,11 @@ export default class ComputersPage extends React.Component{
 
         let filters = {price: this.state.filtersByPrice, brands: this.state.filtersByBrand};
 
-        this.setState({computers: api.findComputers(filters)})
+        api
+            .findComputers(filters)
+            .then(filteredComputers => {
+                this.setState({computers: filteredComputers});
+            })
     }
 
     render(){
