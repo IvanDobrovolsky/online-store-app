@@ -28,8 +28,9 @@ function getAllBrandNames(){
 }
 
 function removeComputer(id){
-    return fetch(`/api/computers/${id}`, {method: 'delete'})
-            .then(response => response.json());
+    return fetch(`/api/computers/${id}`, {
+            method: 'delete'
+        }).then(response => response.json());
 }
 
 function createNewComputer(computer){

@@ -31,16 +31,7 @@ function getComputerById(id){
 }
 
 function createNewComputer(newComputer){
-    const computer = new Computer({
-        _id:         newComputer._id,
-        title:       newComputer.title,
-        brand:       newComputer.brand,
-        price:       newComputer.price,
-        image:       newComputer.image,
-        date:        newComputer.date,
-        description: newComputer.description,
-        details:     newComputer.details
-    });
+    const computer = new Computer(newComputer);
 
     return computer.save();
 }

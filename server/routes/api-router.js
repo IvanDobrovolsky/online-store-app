@@ -17,8 +17,6 @@ module.exports = (app, express) => {
     });
 
 
-//Mock data
-
     //Getting all computers
     apiRouter.get('/computers', (request, response) => {
         db
@@ -83,6 +81,13 @@ module.exports = (app, express) => {
             response.json({
                 success: true,
                 message: "New computer was successfully created!",
+                data: null
+            });
+
+        } else {
+            response.json({
+                success: false,
+                message: "Couldn't create a computer!",
                 data: null
             });
         }

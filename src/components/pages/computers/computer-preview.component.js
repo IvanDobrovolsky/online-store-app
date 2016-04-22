@@ -1,8 +1,8 @@
 import React from 'react';
 import Navigation from '../../common/navigation.component';
 import {browserHistory} from 'react-router';
-
 import api from './../../../api/api';
+import toastr from 'toastr';
 
 export default class ComputerPreviewPage extends React.Component{
 
@@ -31,16 +31,22 @@ export default class ComputerPreviewPage extends React.Component{
         api
            .getComputerById(this.props.params.id)
            .then(response => {
-               this.setState({
-                   title: response.data.title,
-                   _id: response.data._id,
-                   date: response.data.date,
-                   image: response.data.image,
-                   description: response.data.description,
-                   price: response.data.price,
-                   details: response.data.details,
-                   brand: response.data.brand
-               });
+               if(response.success){
+                   this.setState({
+                       title: response.data.title,
+                       _id: response.data._id,
+                       date: response.data.date,
+                       image: response.data.image,
+                       description: response.data.description,
+                       price: response.data.price,
+                       details: response.data.details,
+                       brand: response.data.brand
+                   });
+                   toastr.success(response.message);
+               } else {
+                   toastr.error(response.message);
+               }
+
            });
     }
 
