@@ -5,7 +5,7 @@ headers.set('Content-Type', 'application/json');
 
 function getAllComputers(){
     return fetch('/api/computers')
-            .then(response => response.json())
+            .then(response => response.json());
 }
 
 
@@ -14,7 +14,7 @@ function findComputers(filters){
         method: 'post',
         headers,
         body: JSON.stringify(filters)
-    }).then(response => response.json())
+    }).then(response => response.json());
 }
 
 function getComputerById(id){

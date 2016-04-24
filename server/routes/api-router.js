@@ -10,7 +10,7 @@ module.exports = (app, express) => {
     db.setUpConnection();
 
 
-//Middleware for Logging each request to the console
+    //Middleware for Logging each request to the console
     apiRouter.use((request, response, next) => {
         console.log(request.method, `/api${request.url}`);
         next();
@@ -31,7 +31,7 @@ module.exports = (app, express) => {
           .catch(error => {
               response.json({
                   success: false,
-                  message: "Could fetch data " + error,
+                  message: `Couldn't fetch data:  ${error}`,
                   data: null
               });
           });
@@ -40,6 +40,8 @@ module.exports = (app, express) => {
     apiRouter.post('/computers/filter', (request, response) => {
 
         const filters = request.body;
+
+        console.log(filters);
 
         const isComputerPriceInRange = (computer, priceFrom, priceTo) => computer.price >= +priceFrom && computer.price <= +priceTo;
         const isComputerBrandCorrect = (computer, brandsList) => brandsList.indexOf(computer.brand) >= 0;
@@ -110,7 +112,7 @@ module.exports = (app, express) => {
           .catch(error => {
               response.json({
                   success: false,
-                  message: "The data wasn't found!",
+                  message: `The data wasn't found! ${error}`,
                   data: null
               });
           });
@@ -179,7 +181,7 @@ module.exports = (app, express) => {
             .catch(error => {
                 response.json({
                     success: false,
-                    message: "Could fetch data " + error,
+                    message: `Couldn't fetch data! ${error}`,
                     data: null
                 });
             });

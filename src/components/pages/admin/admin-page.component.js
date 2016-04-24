@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from '../../common/navigation.component';
 import {browserHistory} from 'react-router';
-import api from './../../../api/api';
+import api from '../../../services/api.service';
 import toastr from 'toastr';
 
 export default class AdminPage extends React.Component{

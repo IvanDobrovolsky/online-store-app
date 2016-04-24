@@ -3,8 +3,7 @@ import Navigation from '../../common/navigation.component';
 
 import ComputersList from './computers-list.component';
 
-//mock data
-import api from './../../../api/api';
+import api from '../../../services/api.service';
 
 export default class ComputersPage extends React.Component{
 
