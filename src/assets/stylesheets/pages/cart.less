@@ -1,0 +1,47 @@
+@import '../palette';
+@import '../styleguide';
+
+.page_cart{
+
+  &-title{
+    text-align: center;
+    .styleguide-title;
+  }
+
+  &-item{
+    margin: 30px 0;
+    border-bottom: 2px #f0ad4e solid;
+    padding: 20px;
+
+    &--image{
+      max-width: 300px;
+
+      img{
+        max-width: 100%;
+      }
+    }
+
+    &--quantity{
+      text-align: center;
+    }
+
+    &--price{
+      text-align: center;
+      margin-top: 10px;
+      background: @background_secondary;
+      padding: 10px;
+      border-radius: 3px;
+    }
+
+    &--remove{
+      cursor: pointer;
+    }
+
+  }
+
+  &-total{
+    text-align: center;
+    .styleguide-cta;
+    width: 200px;
+  }
+}

@@ -1,7 +1,14 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 
+import shoppingCartService from './../../../services/shopping-cart.service';
+
 export default class ComputersListItem extends React.Component{
+
+    constructor(){
+        super();
+        this.addToCart = this.addToCart.bind(this);
+    }
 
     static propTypes = {
         _id: React.PropTypes.number.isRequired,
@@ -12,6 +19,10 @@ export default class ComputersListItem extends React.Component{
         brand: React.PropTypes.string.isRequired
     };
 
+    addToCart(id){
+        shoppingCartService.addToCart(id);
+    }
+
     render(){
         return (
             <div>
@@ -21,8 +32,8 @@ export default class ComputersListItem extends React.Component{
                         <img src={this.props.image}/>
                     </div>
                     <p className="page_computers-list-item--description">{this.props.description.split('.').shift() + "..."}</p>
-                    <a className="page_computers-list-item--more" href="#" onClick={() => browserHistory.push(`/computers/${this.props._id}`)}>View</a>
-                    <a className="page_computers-list-item--add" href="#" onClick={ () => alert("Added to cart!")}>Buy</a>
+                    <a className="page_computers-list-item--more" onClick={() => browserHistory.push(`/computers/${this.props._id}`)}>View</a>
+                    <a className="page_computers-list-item--add"  onClick={this.addToCart.bind(this, this.props._id)}>Buy</a>
                 </div>
             </div>
         )
