@@ -1,19 +1,23 @@
 import React from 'react';
 import Navigation from '../../common/navigation.component';
 
-import ComputersList from './computers-list.component';
+import ComputersListItem from './computer-list-item.component';
+
+import {browserHistory} from 'react-router';
 
 import api from '../../../services/api.service';
+import shoppingCartService from './../../../services/shopping-cart.service';
 
 export default class ComputersPage extends React.Component{
 
     constructor(){
         super();
-        this.toggleFilters = this.toggleFilters.bind(this);
-        this.filterComputers = this.filterComputers.bind(this);
-        this.handlePriceChangeFrom = this.handlePriceChangeFrom.bind(this);
-        this.handlePriceChangeTo = this.handlePriceChangeTo.bind(this);
+        this.toggleFilters             = this.toggleFilters.bind(this);
+        this.filterComputers           = this.filterComputers.bind(this);
+        this.handlePriceChangeFrom     = this.handlePriceChangeFrom.bind(this);
+        this.handlePriceChangeTo       = this.handlePriceChangeTo.bind(this);
         this.handleCheckboxBrandChange = this.handleCheckboxBrandChange.bind(this);
+        this.addToCart                 = this.addToCart.bind(this);
     }
 
     state = {
@@ -75,6 +79,11 @@ export default class ComputersPage extends React.Component{
             })
     }
 
+    addToCart(id){
+        shoppingCartService.addToCart(id);
+        this.forceUpdate();
+    }
+
     render(){
         return (
             <div>
@@ -103,7 +112,24 @@ export default class ComputersPage extends React.Component{
                                 </form>
                             </div>
                         </div>
-                        <ComputersList computers = {this.state.computers}/>
+                        <div className="page_computers-list">
+                            <div className="page_computers-list-item">
+
+                            </div>
+                            {this.state.computers.length == 0 ? <h2>No computers in the catalog</h2> : this.state.computers.map((computer, index) => {
+                                return (<div className="page_computers-list-item" key={index}>
+                                            <ComputersListItem  _id={computer._id}
+                                                                title={computer.title}
+                                                                description={computer.description}
+                                                                image={computer.image}
+                                                                brand={computer.brand}
+                                                                price={computer.price}/>
+                                            <a className="page_computers-list-item--more" onClick={() => browserHistory.push(`/computers/${this.props._id}`)}>View</a>
+                                            <a className="page_computers-list-item--add"  onClick={this.addToCart.bind(this, computer._id)}>Buy</a>
+                                        </div>)
+                            })}
+
+                        </div>
                     </div>
                 </div>
             </div>
