@@ -124,7 +124,7 @@ export default class ComputersPage extends React.Component{
                                                                 image={computer.image}
                                                                 brand={computer.brand}
                                                                 price={computer.price}/>
-                                            <a className="page_computers-list-item--more" onClick={() => browserHistory.push(`/computers/${this.props._id}`)}>View</a>
+                                            <a className="page_computers-list-item--more" onClick={() => browserHistory.push(`/computers/${computer._id}`)}>View</a>
                                             <a className="page_computers-list-item--add"  onClick={this.addToCart.bind(this, computer._id)}>Buy</a>
                                         </div>)
                             })}
